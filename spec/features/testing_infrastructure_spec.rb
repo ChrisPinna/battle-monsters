@@ -19,12 +19,14 @@ feature 'Testing infrastructure' do
     sign_in_and_play
     expect(page).to have_content('Nico VS Chris')
   end
+
   context '/battleground route' do
 
     scenario 'can see player2 hit points' do 
       sign_in_and_play
       expect(page).to have_content('Chris: HP 10/10')
     end
+    
     scenario 'can attack player2 and reduce their HP' do 
       sign_in_and_play
       click_on 'Attack'

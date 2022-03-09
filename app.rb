@@ -26,14 +26,17 @@ class Battle < Sinatra::Base
     # @message = session[:message]
     @player1_name = $player1.name
     @player2_name = $player2.name
-    @player2_HP = session[:player2_HP]
+    @player2_hp = $player2.hit_points
+    
     @attacked = session[:attacked]
     erb(:battleground)
   end
   
   post '/attack' do
     session[:attacked] = true
-    session[:player2_HP] -= 1
+    @player1 = $player1
+    @player2 = $player2
+    @player1.attack(@player2)
     redirect "/battleground"
   end
 
