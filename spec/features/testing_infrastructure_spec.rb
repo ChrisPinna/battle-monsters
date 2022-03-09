@@ -16,11 +16,15 @@ feature 'Testing infrastructure' do
   end
 
   scenario 'Can input a player name ' do 
-    visit('/')
-    fill_in('player1' , with: 'Nico')
-    fill_in('player2' , with: 'Chris')
-    click_on('Submit')
-    
+    sign_in_and_play
     expect(page).to have_content('Nico VS Chris')
+  end
+  context '/battleground route' do
+
+    scenario 'can see player2 hit points' do 
+      sign_in_and_play
+      expect(page).to have_content('Chris: HP 10/10')
+    end
+
   end
 end
