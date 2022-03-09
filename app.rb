@@ -1,6 +1,8 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
 require_relative './lib/player.rb'
+require_relative './lib/game.rb'
+
 
 class Battle < Sinatra::Base
   configure :development do
@@ -16,14 +18,11 @@ class Battle < Sinatra::Base
   post '/battleground' do
     $player1 = Player.new(params[:player1])
     $player2 = Player.new(params[:player2])
-    session[:player2_HP] = 10
     session[:attacked] = false
-    # session[:message] = "We gotcha #{@player1} & #{@player2}."
     redirect "/battleground"
   end
   
   get '/battleground' do
-    # @message = session[:message]
     @player1_name = $player1.name
     @player2_name = $player2.name
     @player2_hp = $player2.hit_points
@@ -36,7 +35,8 @@ class Battle < Sinatra::Base
     session[:attacked] = true
     @player1 = $player1
     @player2 = $player2
-    @player1.attack(@player2)
+    @game = Game.new
+    @game.attack(@player2)
     redirect "/battleground"
   end
 

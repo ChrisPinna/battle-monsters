@@ -12,15 +12,6 @@ describe Player do
     expect(player.hit_points).to(eq(Player::DEFAULT_HP))
   end
 
-  context '.attack' do
-    it 'should attack another player' do
-      player1 = Player.new('Chris')
-      player2 = Player.new('Nico')
-      expect(player2).to receive(:reduce_hp)
-      player1.attack(player2)
-    end
-  end
-
   context '.reduce_hp' do
     it 'should return name of the player' do
       player = Player.new('Chris')
