@@ -20,6 +20,7 @@ feature 'Testing infrastructure' do
     fill_in('player1' , with: 'Nico')
     fill_in('player2' , with: 'Chris')
     click_on('Submit')
+    
     expect(page).to have_content('Nico VS Chris')
   end
 end

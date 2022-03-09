@@ -6,14 +6,23 @@ class Battle < Sinatra::Base
     register Sinatra::Reloader
   end
 
+  enable :sessions
+
   get '/' do
     erb(:index)
   end
 
   post '/battleground' do
-    p params
-    @player1 = params[:player1]
-    @player2 = params[:player2]
+    session[:player1] = params[:player1]
+    session[:player2] = params[:player2]
+    # session[:message] = "We gotcha #{@player1} & #{@player2}."
+    redirect "/battleground"
+  end
+  
+  get '/battleground' do
+    # @message = session[:message]
+    @player1 = session[:player1]
+    @player2 = session[:player2]
     erb(:battleground)
   end
 
