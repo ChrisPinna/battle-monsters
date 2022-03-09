@@ -15,6 +15,7 @@ class Battle < Sinatra::Base
   post '/battleground' do
     session[:player1] = params[:player1]
     session[:player2] = params[:player2]
+    session[:player2_HP] = 10
     # session[:message] = "We gotcha #{@player1} & #{@player2}."
     redirect "/battleground"
   end
@@ -23,7 +24,13 @@ class Battle < Sinatra::Base
     # @message = session[:message]
     @player1 = session[:player1]
     @player2 = session[:player2]
+    @player2_HP = session[:player2_HP]
     erb(:battleground)
+  end
+  
+  post '/attack' do
+    session[:player2_HP] -= 1
+    redirect "/battleground"
   end
 
   # start the server if ruby file executed directly

@@ -6,7 +6,7 @@ feature 'Testing infrastructure' do
 
   scenario 'checking that the page has a button' do
     visit('/')
-    expect(page).to have_button('Submit')
+    expect(page).to have_button('Play')
   end
 
   scenario 'checking that the page has 2 blank boxes' do
@@ -24,6 +24,11 @@ feature 'Testing infrastructure' do
     scenario 'can see player2 hit points' do 
       sign_in_and_play
       expect(page).to have_content('Chris: HP 10/10')
+    end
+    scenario 'can attack player2 and reduce their HP' do 
+      sign_in_and_play
+      click_on 'Attack'
+      expect(page).to have_content('Chris: HP 9/10')
     end
 
   end

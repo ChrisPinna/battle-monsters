@@ -11,4 +11,8 @@ div {
 }
 </style>
 
-<div> <%=@player2%>: HP 10/10 </div>
+<div> <%=@player2%>: HP <%=@player2_HP%>/10 </div>
+
+<form action="/attack" method="post">
+  <input type="submit" value="Attack">
+</form>
