@@ -16,16 +16,17 @@ class Battle < Sinatra::Base
   end
 
   post '/battleground' do
-    $player1 = Player.new(params[:player1])
-    $player2 = Player.new(params[:player2])
+    player1 = Player.new(params[:player1])
+    player2 = Player.new(params[:player2])
+    $game = Game.new(player1, player2)
     session[:attacked] = false
     redirect "/battleground"
   end
   
   get '/battleground' do
-    @player1_name = $player1.name
-    @player2_name = $player2.name
-    @player2_hp = $player2.hit_points
+    @player1_name = $game.player1.name
+    @player2_name = $game.player2.name
+    @player2_hp = $game.player2.hit_points
     
     @attacked = session[:attacked]
     erb(:battleground)
@@ -33,10 +34,9 @@ class Battle < Sinatra::Base
   
   post '/attack' do
     session[:attacked] = true
-    @player1 = $player1
-    @player2 = $player2
-    @game = Game.new
-    @game.attack(@player2)
+    @player1 = $game.player1
+    @player2 = $game.player2
+    $game.attack(@player2)
     redirect "/battleground"
   end
 
