@@ -54,4 +54,16 @@ feature 'Testing infrastructure' do
       expect(page).to have_content('Chris: HP 9/10')
     end
   end
+
+  context 'plays a few turns' do
+    scenario 'can see player2 hit points' do 
+      sign_in_and_play
+      click_on 'Attack'
+      click_on "Chris's Turn"
+      click_on 'Attack'
+      click_on "Nico's Turn"
+      expect(page).to have_content('Chris: HP 9/10')
+    end
+  end
+
 end
