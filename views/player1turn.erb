@@ -25,3 +25,7 @@ div {
   <input type="submit" value="<%=@player2_name%>'s Turn">
 </form>
 <%end%>
+
+<% if @player2_hp == 0 %>
+<p> <%=@player1_name%> Wins! </p>
+<%end%>

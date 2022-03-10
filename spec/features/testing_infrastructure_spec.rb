@@ -66,4 +66,18 @@ feature 'Testing infrastructure' do
     end
   end
 
+  context 'shows player 2 win message' do
+    scenario 'can see player2 hit points' do 
+      sign_in_and_play
+      9.times do
+        click_on 'Attack'
+        click_on "Chris's Turn"
+        click_on 'Attack'
+        click_on "Nico's Turn"
+      end
+      click_on 'Attack'
+      expect(page).to have_content('Nico Wins!')
+    end
+  end
+
 end
