@@ -11,12 +11,17 @@ div {
 }
 </style>
 
-<div> <%=@player2_name%>: HP <%=@player2_hp%>/10 </div>
+<div style="float:right";><%=@player2_name%>: HP <%=@player2_hp%>/10 </div>
+<div style="float:left"> <%=@player1_name%>: HP <%=@player1_hp%>/10 </div>
 
 <form action="/attack" method="post">
   <input type="submit" value="Attack">
 </form>
 
+
 <% if @attacked %>
 <p> <%=@player1_name%> has attacked <%=@player2_name%> </p>
+<form action="/player2turn" method="post">
+  <input type="submit" value="<%=@player2_name%>'s Turn">
+</form>
 <%end%>

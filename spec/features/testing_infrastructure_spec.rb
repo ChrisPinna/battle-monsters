@@ -20,18 +20,38 @@ feature 'Testing infrastructure' do
     expect(page).to have_content('Nico VS Chris')
   end
 
-  context '/battleground route' do
+  context '/player1turn route' do
+
+    scenario 'can see player1 hit points' do 
+      sign_in_and_play
+      expect(page).to have_content('Nico: HP 10/10')
+    end
 
     scenario 'can see player2 hit points' do 
       sign_in_and_play
       expect(page).to have_content('Chris: HP 10/10')
     end
     
+    scenario 'can attack player2 and read message' do 
+      sign_in_and_play
+      click_on 'Attack'
+      expect(page).to have_content('Nico has attacked Chris')
+    end
+
     scenario 'can attack player2 and reduce their HP' do 
       sign_in_and_play
       click_on 'Attack'
       expect(page).to have_content('Chris: HP 9/10')
     end
 
+  end
+
+  context '/player2turn route' do
+    scenario 'can see player2 hit points' do 
+      sign_in_and_play
+      click_on 'Attack'
+      click_on "Chris's Turn"
+      expect(page).to have_content('Chris: HP 9/10')
+    end
   end
 end

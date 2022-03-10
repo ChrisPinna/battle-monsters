@@ -15,21 +15,35 @@ class Battle < Sinatra::Base
     erb(:index)
   end
 
-  post '/battleground' do
+  post '/player1turn' do
     player1 = Player.new(params[:player1])
     player2 = Player.new(params[:player2])
     $game = Game.new(player1, player2)
     session[:attacked] = false
-    redirect "/battleground"
+    redirect "/player1turn"
   end
   
-  get '/battleground' do
+  get '/player1turn' do
     @player1_name = $game.player1.name
     @player2_name = $game.player2.name
     @player2_hp = $game.player2.hit_points
+    @player1_hp = $game.player1.hit_points
     
     @attacked = session[:attacked]
-    erb(:battleground)
+    erb(:player1turn)
+  end
+
+  post '/player2turn' do
+    session[:attacked] = false
+    redirect "/player2turn"
+  end
+
+  get '/player2turn' do
+    @player1_name = $game.player1.name
+    @player2_name = $game.player2.name
+    @player2_hp = $game.player2.hit_points
+    @player1_hp = $game.player1.hit_points
+    erb(:player2turn)
   end
   
   post '/attack' do
@@ -37,7 +51,7 @@ class Battle < Sinatra::Base
     @player1 = $game.player1
     @player2 = $game.player2
     $game.attack(@player2)
-    redirect "/battleground"
+    redirect "/player1turn"
   end
 
   # start the server if ruby file executed directly
